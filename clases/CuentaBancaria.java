@@ -9,7 +9,7 @@ public class CuentaBancaria {
     public CuentaBancaria(Persona titular, double saldo){
         this.saldo = saldo;
         this.titular = titular;
-        this.numeroCuenta = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+        this.numeroCuenta = this.generarNumeroDeCuenta();
         listaDeCuentasBancarias.add(this);
     }
 
@@ -17,9 +17,26 @@ public class CuentaBancaria {
         this(titular, 0.0);
     }
 
+    //Generar número de cuenta
+    private int generarNumeroDeCuenta(){
+        int aleatorio;
+        boolean numeroExiste;
+        do {
+            aleatorio = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+            numeroExiste = false;
+            for(CuentaBancaria cuenta : listaDeCuentasBancarias){
+                if(cuenta.getNumeroCuenta() == aleatorio){
+                    numeroExiste = true;
+                    break;
+                }
+            }
+        } while(numeroExiste);
+    
+        return aleatorio; 
+    }
     //depositar(double monto): Añade el monto especificado al saldo de la cuenta.
     public void depositar(double monto){
-        this.saldo = monto;
+        this.saldo+= monto;
     }
 
     //retirar(double monto): Retira el monto especificado del saldo de la cuenta, si hay suficientes fondos.
@@ -33,13 +50,13 @@ public class CuentaBancaria {
 
     //despliegaInformacion(): Muestra la información de la cuenta incluyendo la información del titular.
     public String despliegaInformacion(){
-        return "CuentaBancaria [numeroCuenta=" + numeroCuenta  + ", titular=" + titular + ", Saldo=" + saldo + "]";
+        return "numeroCuenta: " + numeroCuenta  + ", titular: " + titular.despiegaInformacion() + ", Saldo: " + saldo;
     }
 
     //imprimeInformacionDeTodasLasCuentas(): Método estático que recorre la lista de cuentas bancarias e imprime su información.
     public static void imprimeInformacionDeTodasLasCuentas(){
         for(CuentaBancaria cuentaBancaria: listaDeCuentasBancarias){
-            System.out.println(cuentaBancaria);
+            System.out.println(cuentaBancaria.despliegaInformacion());
         }
     }
 
@@ -64,16 +81,10 @@ public class CuentaBancaria {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(int numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
-
     @Override
     public String toString() {
         return "CuentaBancaria [saldo=" + saldo + ", titular=" + titular + ", numeroCuenta=" + numeroCuenta + "]";
     }
-
-    
 
     
 }

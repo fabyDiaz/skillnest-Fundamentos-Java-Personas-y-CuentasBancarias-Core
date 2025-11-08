@@ -24,7 +24,7 @@ public class Persona{
     }
 
     public String despiegaInformacion(){
-        return "Persona [nombre=" + nombre + ", edad=" + edad + "]";
+        return "nombre=" + nombre + ", edad=" + edad;
     }
 
     @Override
