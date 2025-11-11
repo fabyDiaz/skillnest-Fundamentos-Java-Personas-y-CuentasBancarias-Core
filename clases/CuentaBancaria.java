@@ -36,15 +36,23 @@ public class CuentaBancaria {
     }
     //depositar(double monto): Añade el monto especificado al saldo de la cuenta.
     public void depositar(double monto){
-        this.saldo+= monto;
+        if(monto > 0){
+            this.saldo+= monto;
+            System.out.println("Saldo actualizado");
+        }else{
+            System.out.println("monto no válido");
+        }
     }
 
     //retirar(double monto): Retira el monto especificado del saldo de la cuenta, si hay suficientes fondos.
     public void retirar(double monto){
-        if(monto <= saldo){
+        if(monto <= saldo && monto > 0){
             saldo-=monto;
+            System.out.println("Retiro de saldo de forma existosa, por el monto de $" + monto);
+        }else if( monto > saldo){
+            System.out.println("Saldo insuficiente");
         }else{
-            System.out.println("no hay saldo suficiente en la cuenta: "+ numeroCuenta);
+             System.out.println("no hay saldo suficiente en la cuenta: "+ numeroCuenta);
         }
     }
 
